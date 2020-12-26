@@ -30,7 +30,7 @@ public class Producto {
     private String codigoBarras;
 /**Campo5*/
     @Column(name= "precio_venta")
-    private Double PrecioVenta;
+    private Double precioVenta;
 /**Campo6*/
     @Column(name= "cantidad_stock")
     private Integer cantidadStock;
@@ -46,7 +46,6 @@ public class Producto {
 
 
     /**Getters and Setters for each column*/
-
     public Integer getIdProducto() {
         return idProducto;
     }
@@ -80,11 +79,11 @@ public class Producto {
     }
 
     public Double getPrecioVenta() {
-        return PrecioVenta;
+        return precioVenta;
     }
 
     public void setPrecioVenta(Double precioVenta) {
-        PrecioVenta = precioVenta;
+        this.precioVenta = precioVenta;
     }
 
     public Integer getCantidadStock() {
@@ -101,5 +100,13 @@ public class Producto {
 
     public void setEstado(Boolean estado) {
         this.estado = estado;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 }
