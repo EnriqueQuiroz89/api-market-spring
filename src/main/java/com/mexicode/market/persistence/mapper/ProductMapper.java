@@ -2,6 +2,7 @@ package com.mexicode.market.persistence.mapper;
 
 import com.mexicode.market.domain.Product;
 import com.mexicode.market.persistence.entity.Producto;
+import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -25,13 +26,13 @@ public interface ProductMapper {
 
     })
     Product toProduct(Producto producto);
-
     /**No hace falta definir un nuevo mapings
      *  ya que replica lo del objeto de arriba*/
     List<Product> toProducts(List<Producto> productos);
 
     /**Conversion contraria*/
+    @InheritInverseConfiguration
     @Mapping(target = "codigoBarras", ignore = true)
-    Producto toProducto(Product product);
+    Producto toProduct(Product product);
 
 }

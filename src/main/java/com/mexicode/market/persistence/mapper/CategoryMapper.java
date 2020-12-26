@@ -9,23 +9,25 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
 @Mapper(componentModel = "spring") /**Indico a java que es un mapeador*/
-
 public interface CategoryMapper {
 
     /**Convirtiendo categorias to category*/
     @Mappings({
-            @Mapping(source = "idCategoria", target = "CategoryId"),
+            @Mapping(source = "idCategoria", target = "categoryId"),
             @Mapping(source = "descripcion", target = "category"),
             @Mapping(source = "estado", target = "active")
              })
-
-    /**Conversores*/
     Category toCategory(Categoria categoria);
 
     /**Conversion externa*/
     @InheritInverseConfiguration /**No evita definif Mappings*/
     @Mapping(target = "productos", ignore = true)
     Categoria toCategoria(Category category);
+
+
+
+
+
 
 
 }
