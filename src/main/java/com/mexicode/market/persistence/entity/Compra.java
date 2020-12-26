@@ -34,12 +34,15 @@ public class Compra {
     private Cliente cliente;
 
     /**Me interesa acceder to All Products in a Compra*/
-    @OneToMany(mappedBy = "producto")
+                                       //Todos los porcesos que se hagaen una BD van a incluir sus productos
+    @OneToMany(mappedBy = "compra" , cascade = {CascadeType.ALL})
     private List<ComprasProducto> productos;
 
 
 
      /**Getters an Setters*/
+
+
     public Integer getIdCompra() {
         return idCompra;
     }
@@ -86,5 +89,21 @@ public class Compra {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public List<ComprasProducto> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(List<ComprasProducto> productos) {
+        this.productos = productos;
     }
 }

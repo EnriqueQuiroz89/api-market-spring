@@ -12,11 +12,11 @@ public class Cliente {
 /**Campo1*/
     @Id
     //@GeneratedValue no es necesario por que el cliente ya tiene un Id en su persona
-    private Integer id;
+    private String id;
 /**Campo2*/
     private String nombre;
 /**Campo3*/
-    private String apellido;
+    private String apellidos;
 /**Campo4*/
     private Long celular;
 /**Campo5*/
@@ -33,11 +33,12 @@ public class Cliente {
 
 
 /**Getters an Setters*/
-    public Integer getId() {
+
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -49,12 +50,12 @@ public class Cliente {
         this.nombre = nombre;
     }
 
-    public String getApellido() {
-        return apellido;
+    public String getApellidos() {
+        return apellidos;
     }
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
+    public void setApellidos(String apellido) {
+        this.apellidos = apellido;
     }
 
     public Long getCelular() {
@@ -79,5 +80,13 @@ public class Cliente {
 
     public void setCorreoElectronico(String correoElectronico) {
         this.correoElectronico = correoElectronico;
+    }
+
+    public List<Compra> getCompras() {
+        return compras;
+    }
+
+    public void setCompras(List<Compra> compras) {
+        this.compras = compras;
     }
 }
