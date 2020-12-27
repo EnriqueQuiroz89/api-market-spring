@@ -1,11 +1,16 @@
 package com.mexicode.market.web.security;
 
+import com.mexicode.market.web.security.filter.JwtFilterRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -13,8 +18,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
         private UserDetailsService userDetailsService;
 
+    @Autowired
+    private JwtFilterRequest jwtFilterRequest;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
           auth.userDetailsService(userDetailsService);
+    }
+
+    @Override  /**Aqui indiaca que peticiones si va a permitir sin authenticate*/
+    protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable()
+                   .authorizeRequests()
+                   .antMatchers("/**/authenticate")
+                   .permitAll()
+                   .anyRequest().authenticated() /**Cualquier otra cosa reuquiere auth*/
+                   .and()
+                   .sessionManagement()
+                   .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+                   http.addFilterBefore(jwtFilterRequest, UsernamePasswordAuthenticationFilter.class);
+    }
+
+    @Override       /**Delego a spring que controle la autneticacion*/
+    @Bean           /**Indico de forma explicita que le delego esa respon*/
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 }
